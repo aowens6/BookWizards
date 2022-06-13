@@ -1,0 +1,38 @@
+{
+    "authors": [
+        {
+            "authorId": 1,
+            "firstName": "Frank",
+            "lastName": "Herbert"
+        }
+
+    ],
+    "books": [
+        {
+            "bookId": 1,
+            "title": "Dune",
+            "authorId": 1,
+            "genreId": 1
+        }
+
+    ],
+    "genres": [
+        {
+            "genreId": 1,
+            "genreName": "sci-fi"
+        }
+
+    ],
+    "meetings": [
+        {
+            "meetingId": 1,
+            "groupName": "The Muad'Dib Fan Club",
+            "description": "",
+            "bookId": 1,
+            "organizerId": 1,
+            "startDateTime": "",
+            "endDateTime": ""
+        }
+
+    ]
+}
