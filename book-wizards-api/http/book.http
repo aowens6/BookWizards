@@ -1,4 +1,4 @@
-@url = http://localhost:8080/api/author
+@url = http://localhost:8080/api/book
 
 GET {{url}} HTTP/1.1
 
@@ -13,8 +13,9 @@ Content-Type: application/json
 
 {
 
-  "firstName": "Phillip",
-  "lastName": "Pullman"
+  "title": "Hitchhikers Guide to the Galaxy",
+  "authorId": "1",
+  "genreId" : "1"
 }
 
 ###
@@ -24,7 +25,7 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "firstName": "Claudian"
+  "title": "Cat in the Hat"
 
 }
 

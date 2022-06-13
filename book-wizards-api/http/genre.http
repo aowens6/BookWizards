@@ -1,4 +1,4 @@
-@url = http://localhost:8080/api/author
+@url = http://localhost:8080/api/genre
 
 GET {{url}} HTTP/1.1
 
@@ -12,9 +12,7 @@ POST {{url}} HTTP/1.1
 Content-Type: application/json
 
 {
-
-  "firstName": "Phillip",
-  "lastName": "Pullman"
+    "genreName" : "Sci-Fi"
 }
 
 ###
@@ -24,7 +22,7 @@ Content-Type: application/json
 
 {
   "id": 1,
-  "firstName": "Claudian"
+  "genreName": "Memoir"
 
 }
 
