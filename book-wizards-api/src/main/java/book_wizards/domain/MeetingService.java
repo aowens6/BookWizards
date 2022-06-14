@@ -2,6 +2,7 @@ package book_wizards.domain;
 
 import book_wizards.data.MeetingJPARepository;
 import book_wizards.models.Meeting;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -10,6 +11,7 @@ import java.util.List;
 @Service
 public class MeetingService {
 
+  @Autowired
   private final MeetingJPARepository repository;
 
 
