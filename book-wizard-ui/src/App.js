@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
 import Meetings from "./components/Meetings";
+import Meeting from "./components/Meeting";
 import MeetingForm from "./components/MeetingForm";
 import MeetingConfirmDelete from "./components/MeetingConfirmDelete";
 import Login from "./components/Login";
@@ -39,6 +40,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/meetings" element={<Meetings />} />
+            <Route path="/meeting/:meetingId" element={<Meeting />} />
             <Route path="/add" element={user ? <MeetingForm /> : <Login />} />
             <Route path="/edit/:meetingId" element={user ? <MeetingForm /> : <Login />} />
             <Route path="/delete/:meetingId" element={user ? <MeetingConfirmDelete /> : <Login />} />

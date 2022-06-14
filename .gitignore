@@ -102,3 +102,19 @@ dist
 
 # TernJS port file
 .tern-port
+
+# Compiled class file
+*.class
+
+# IntelliJ
+.idea/
+out/
+
+# Maven
+target/
+
+# npm
+node_modules/
+
+# macOS
+.DS_Store
