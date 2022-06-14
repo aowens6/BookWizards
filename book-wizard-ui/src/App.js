@@ -5,6 +5,7 @@ import Meetings from "./components/Meetings";
 import MeetingForm from "./components/MeetingForm";
 import MeetingConfirmDelete from "./components/MeetingConfirmDelete";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import Nav from "./components/Nav";
 import NotFound from "./components/NotFound";
 import { refresh } from "./services/auth";
@@ -42,6 +43,7 @@ function App() {
             <Route path="/edit/:meetingId" element={user ? <MeetingForm /> : <Login />} />
             <Route path="/delete/:meetingId" element={user ? <MeetingConfirmDelete /> : <Login />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div >

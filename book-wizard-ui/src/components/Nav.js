@@ -7,9 +7,11 @@ export default function Nav() {
     const { user, logout } = useContext(AuthContext);
 
     return (
-        <nav className="navbar navbar-dark bg-dark">
-            <div class="container">
-                <Link to="/" className="navbar-brand">Home</Link>
+
+
+        <nav className="navbar navbar-expand-xl navbar-light bg-light mt-3 px-5">
+            <Link className="navbar-brand" to="/">Home</Link>
+            <div className="collapse navbar-collapse" id="navbarNav">
                 <Link className="nav-link" to="/meetings">Meetings</Link>
                 <div className="col d-flex justify-content-end">
                     {user ? <button className="btn btn-danger" onClick={logout}>Log Out</button>
