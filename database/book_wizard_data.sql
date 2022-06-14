@@ -32,3 +32,18 @@ values
 	("It", 1, 3),
     ("Murder She Wrote", 2, 1),
     ("Harry Potter", 3, 1);
+
+insert into app_role (`name`) values
+    ('USER'),
+    ('ADMIN');
+
+-- passwords are set to "P@ssw0rd!"
+insert into app_user (username, password_hash, disabled)
+    values
+    ('john@smith.com', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0),
+    ('sally@jones.com', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0);
+
+insert into app_user_role
+    values
+    (1, 2),
+    (2, 1);
