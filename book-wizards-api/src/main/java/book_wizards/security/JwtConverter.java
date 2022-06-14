@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 public class JwtConverter {
 
     private Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
-    private final String ISSUER = "taylor-swift-fansite-server";
+    private final String ISSUER = "book-wizards-api";
     private final int EXPIRATION_MINUTES = 15;
     private final int EXPIRATION_MILLIS = EXPIRATION_MINUTES * 60 * 1000;
 

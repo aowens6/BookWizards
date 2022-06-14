@@ -1,7 +1,7 @@
 package book_wizards.controllers;
 
 import book_wizards.models.AppUser;
-import book_wizards.security.AppUserService;
+import book_wizards.domain.AppUserService;
 import book_wizards.security.JwtConverter;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
