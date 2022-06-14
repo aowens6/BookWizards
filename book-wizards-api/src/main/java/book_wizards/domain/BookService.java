@@ -49,7 +49,7 @@ public class BookService {
       return result;
     }
 
-    if (book.getAuthorId() <= 0) {
+    if (book.getBookId() <= 0) {
       result.addMessage("id must be set for `update` operation", ResultType.INVALID);
       return result;
     }
