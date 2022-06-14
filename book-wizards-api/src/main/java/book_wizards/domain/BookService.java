@@ -32,7 +32,7 @@ public class BookService {
       return result;
     }
 
-    if(book.getAuthorId() != 0) {
+    if(book.getBookId() != 0) {
       result.addMessage("Book id cannot be set for `add` operation", ResultType.INVALID);
       return result;
     }
