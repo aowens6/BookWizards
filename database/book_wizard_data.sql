@@ -32,4 +32,3 @@ values
 	("It", 1, 3),
     ("Murder She Wrote", 2, 1),
     ("Harry Potter", 3, 1);
-
