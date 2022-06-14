@@ -2,7 +2,6 @@ package book_wizards.controllers;
 
 import book_wizards.domain.MeetingService;
 import book_wizards.domain.Result;
-import book_wizards.models.Author;
 import book_wizards.models.Meeting;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

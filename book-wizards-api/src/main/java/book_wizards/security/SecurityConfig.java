@@ -7,10 +7,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -32,14 +28,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/create_account").permitAll()
                 // all endpoints to protect go here
-                .antMatchers(HttpMethod.GET, "/api/song", "/api/song/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/song").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/song/*").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/song/*").hasAnyRole("ADMIN")
-                .antMatchers(HttpMethod.GET, "/api/gossip", "/api/gossip/*").permitAll()
-                .antMatchers(HttpMethod.POST, "/api/gossip").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.PUT, "/api/gossip/*").hasAnyRole("USER", "ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/api/gossip/*").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/author", "/api/author/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/author").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/author/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/author/*").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/book", "/api/book/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/book").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/book/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/book/*").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/genre", "/api/genre/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/genre").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/genre/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/genre/*").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.GET, "/api/meeting", "/api/meeting/*").permitAll()
+                .antMatchers(HttpMethod.POST, "/api/meeting").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/meeting/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/api/meeting/*").hasAnyRole("ADMIN")
                 // require authentication for any request...
                 .anyRequest().authenticated()
                 .and()
