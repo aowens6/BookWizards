@@ -20,8 +20,8 @@ public class App {
   @Bean
   public WebMvcConfigurer corsConfigurer() {
 
-    // Configure CORS globally versus
-    // controller-by-controller or method-by-method.
+//     Configure CORS globally versus
+//     controller-by-controller or method-by-method.
     return new WebMvcConfigurer() {
       @Override
       public void addCorsMappings(CorsRegistry registry) {
