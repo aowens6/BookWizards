@@ -2,6 +2,7 @@ package book_wizards.domain;
 
 import book_wizards.data.AuthorJPARepository;
 import book_wizards.models.Author;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 @Service
 public class AuthorService {
 
+  @Autowired
   private final AuthorJPARepository repository;
 
 
