@@ -1,6 +1,6 @@
 // const url = `${process.env.REACT_APP_API_URL}/api/meeting`;
-// const url = "http://localhost:8080/api/meeting";
-const url = "http://localhost:3010/meetings";
+const url = "http://localhost:8080/api/meeting";
+// const url = "http://localhost:3010/meetings";
 
 export async function findAll() {
     const response = await fetch(url);

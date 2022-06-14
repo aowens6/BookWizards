@@ -38,6 +38,9 @@ insert into app_role (`name`) values
     ('ADMIN');
 
 -- passwords are set to "P@ssw0rd!"
+-- $2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa
+-- ehCX7MexUCb&T7
+-- $2a$10$OOzG0kG/hJ/2mHmq6nuPZ.0q71b3mm/sYthN93PgX6Q2XBDUNLu.K
 insert into app_user (username, password_hash, disabled)
     values
     ('john@smith.com', '$2a$10$ntB7CsRKQzuLoKY3rfoAQen5nNyiC/U60wBsWnnYrtQQi8Z3IZzQa', 0),
