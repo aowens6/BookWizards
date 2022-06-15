@@ -32,6 +32,7 @@ values
 	("It", 1, 3),
     ("Murder She Wrote", 2, 1),
     ("Harry Potter", 3, 1);
+    
 
 insert into app_role (`name`) values
     ('USER'),
@@ -50,3 +51,14 @@ insert into app_user_role
     values
     (1, 2),
     (2, 1);
+    
+insert into meeting (group_name, description, book_id, organizer_id, start_date_time, end_date_time)
+values
+	("Book Wizards", "reading is fundamental", 1, 1, '2022-07-07 12:00:00', '2022-07-07 12:45:00'),
+    ("Wine Moms", "Dostoyevski and alcohol", 1, 1, '2022-07-07 15:00:00', '2022-07-07 15:45:00'),
+    ("Prose Before Bros", "reading.", 1, 1, '2022-07-07 16:00:00', '2022-07-07 16:45:00');
+    
+    
+    
+    
+    
