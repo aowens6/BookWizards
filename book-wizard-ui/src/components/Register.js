@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../contexts/AuthContext";
-import { authenticate } from "../services/auth";
+import { create } from "../services/auth";
 
 function Register() {
 
@@ -17,7 +17,7 @@ function Register() {
     const handlePassword = (evt) => setPassword(evt.target.value);
     const handleSubmit = (evt) => {
         evt.preventDefault();
-
+        create({ username, password })
     };
 
     return (
