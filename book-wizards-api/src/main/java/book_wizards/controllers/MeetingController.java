@@ -26,8 +26,12 @@ public class MeetingController {
   }
 
   @GetMapping("/{id}")
-  public Meeting findById(@PathVariable int id) {
-    return service.findById(id);
+  public ResponseEntity<Meeting> findById(@PathVariable int id) {
+    Meeting searched = service.findById(id);
+    if(searched == null){
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<Meeting>(searched, HttpStatus.OK);
   }
 
   @PostMapping

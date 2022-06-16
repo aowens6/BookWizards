@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -34,6 +35,35 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository {
                 .stream()
                 .findFirst().orElse(null);
     }
+
+    @Override
+    public AppUser findById(int id) {
+
+        List<String> roles = getRolesById(id);
+
+        final String sql = "select app_user_id, username, password_hash, disabled "
+                + "from app_user "
+                + "where app_user_id = ?;";
+
+        return jdbcTemplate.query(sql, new AppUserMapper(roles), id)
+                .stream()
+                .findFirst().orElse(null);
+
+    }
+
+    @Override
+    public List<AppUser> findListOfUsersByIds(List<Integer> ids) {
+
+        List<AppUser> users = new ArrayList<>();
+
+        for(int id : ids){
+            AppUser user = findById(id);
+            users.add(user);
+        }
+
+        return users;
+    }
+
 
     @Override
     @Transactional
@@ -99,5 +129,16 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository {
                 + "inner join app_user au on ur.app_user_id = au.app_user_id "
                 + "where au.username = ?";
         return jdbcTemplate.query(sql, (rs, rowId) -> rs.getString("name"), username);
+    }
+
+    private List<String> getRolesById(int id){
+
+        final String sql = "select r.name "
+                + "from app_user_role ur "
+                + "inner join app_role r on ur.app_role_id = r.app_role_id "
+                + "inner join app_user au on ur.app_user_id = au.app_user_id "
+                + "where au.app_user_id = ?";
+        return jdbcTemplate.query(sql, (rs, rowId) -> rs.getString("name"), id);
+
     }
 }

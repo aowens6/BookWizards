@@ -1,12 +1,16 @@
 package book_wizards.domain;
 
+import book_wizards.data.MeetingAttendeeRepository;
 import book_wizards.data.MeetingJPARepository;
 import book_wizards.models.Meeting;
+import book_wizards.models.MeetingAttendee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class MeetingService {
@@ -14,17 +18,38 @@ public class MeetingService {
   @Autowired
   private final MeetingJPARepository repository;
 
+  @Autowired
+  private final MeetingAttendeeRepository attendeeRepository;
 
-  public MeetingService(MeetingJPARepository repository) {
+
+  public MeetingService(MeetingJPARepository repository, MeetingAttendeeRepository attendeeRepository) {
     this.repository = repository;
+    this.attendeeRepository = attendeeRepository;
   }
 
   public List<Meeting> findAll(){
-    return repository.findAll();
+
+    List<Meeting> meetings = repository.findAll();
+
+    for(Meeting m : meetings){
+
+      List<Integer> attendeesIDs = attendeeRepository.findAttendeesByMeetingId(m.getMeetingId());
+      m.setMeetingAttendees(attendeesIDs);
+    }
+
+    return meetings;
   }
 
+
   public Meeting findById(int id){
-    return repository.findById(id).orElse(null);
+
+    Meeting meeting = repository.findById(id).orElse(null);
+
+    List<Integer> attendeesIDs = attendeeRepository.findAttendeesByMeetingId(id);
+    meeting.setMeetingAttendees(attendeesIDs);
+
+    return meeting;
+
   }
 
   public Result<Meeting> add(Meeting meeting){
@@ -60,6 +85,9 @@ public class MeetingService {
       String msg = String.format("Genre Id: %s, not found", meeting.getMeetingId());
       result.addMessage(msg, ResultType.NOT_FOUND);
     }
+
+    List<Integer> attendeesIDs = attendeeRepository.findAttendeesByMeetingId(meeting.getMeetingId());
+    meeting.setMeetingAttendees(attendeesIDs);
 
     meeting = repository.save(meeting);
     result.setPayload(meeting);
@@ -104,7 +132,6 @@ public class MeetingService {
       meeting.getEndDateTime().isAfter(LocalDateTime.now())){
       result.addMessage("This meeting is in progress. Cannot join", ResultType.INVALID);
     }
-
 
     return result;
   }

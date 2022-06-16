@@ -28,8 +28,12 @@ public class GenreController {
   }
 
   @GetMapping("/{id}")
-  public Genre findById(@PathVariable int id) {
-    return service.findById(id);
+  public ResponseEntity<Genre> findById(@PathVariable int id) {
+    Genre searched = service.findById(id);
+    if(searched == null){
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<Genre>(searched, HttpStatus.OK);
   }
 
   @PostMapping

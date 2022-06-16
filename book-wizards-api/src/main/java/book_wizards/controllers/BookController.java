@@ -27,8 +27,15 @@ public class BookController {
   }
 
   @GetMapping("/{id}")
-  public Book findById(@PathVariable int id) {
-    return service.findById(id);
+  public ResponseEntity<Book> findById(@PathVariable int id) {
+
+    Book searched = service.findById(id);
+
+    if(searched == null){
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    return new ResponseEntity<Book>(searched, HttpStatus.OK);
   }
 
   @PostMapping

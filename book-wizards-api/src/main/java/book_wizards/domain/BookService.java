@@ -14,7 +14,6 @@ public class BookService {
   @Autowired
   private final BookJPARepository repository;
 
-
   public BookService(BookJPARepository repository) {
     this.repository = repository;
   }

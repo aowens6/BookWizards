@@ -2,7 +2,9 @@ package book_wizards.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Meeting {
@@ -15,6 +17,9 @@ public class Meeting {
   private int organizerId;
   private LocalDateTime startDateTime;
   private LocalDateTime endDateTime;
+
+  @Transient
+  private List<Integer> meetingAttendeeIDs;
 
   public Meeting(){}
 
@@ -82,5 +87,13 @@ public class Meeting {
 
   public void setEndDateTime(LocalDateTime endDateTime) {
     this.endDateTime = endDateTime;
+  }
+
+  public List<Integer> getMeetingAttendeeIDs() {
+    return meetingAttendeeIDs;
+  }
+
+  public void setMeetingAttendees(List<Integer> meetingAttendeeIDs) {
+    this.meetingAttendeeIDs = meetingAttendeeIDs;
   }
 }
