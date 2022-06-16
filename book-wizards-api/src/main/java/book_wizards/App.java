@@ -1,6 +1,7 @@
 package book_wizards;
 
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -9,6 +10,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
+@EnableAutoConfiguration
 public class App {
 
   public static void main(String[] args) {
@@ -18,8 +20,8 @@ public class App {
   @Bean
   public WebMvcConfigurer corsConfigurer() {
 
-    // Configure CORS globally versus
-    // controller-by-controller or method-by-method.
+//     Configure CORS globally versus
+//     controller-by-controller or method-by-method.
     return new WebMvcConfigurer() {
       @Override
       public void addCorsMappings(CorsRegistry registry) {

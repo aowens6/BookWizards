@@ -1,4 +1,4 @@
-package book_wizards.security;
+package book_wizards.domain;
 
 import book_wizards.data.AppUserRepository;
 import book_wizards.models.AppUser;
