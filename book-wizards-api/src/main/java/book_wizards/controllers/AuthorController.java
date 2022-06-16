@@ -27,8 +27,13 @@ public class AuthorController {
   }
 
   @GetMapping("/{id}")
-  public Author findById(@PathVariable int id) {
-    return service.findById(id);
+  public ResponseEntity<Author> findById(@PathVariable int id) {
+
+    Author searched = service.findById(id);
+    if(searched == null){
+      return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+    return new ResponseEntity<Author>(searched, HttpStatus.OK);
   }
 
   @PostMapping

@@ -33,6 +33,31 @@ public class AppUserService implements UserDetailsService {
         return appUser;
     }
 
+    public UserDetails loadUserById(int id) throws UsernameNotFoundException {
+
+        AppUser appUser = repository.findById(id);
+
+        if (appUser == null || !appUser.isEnabled()) {
+            throw new UsernameNotFoundException("App user with id: " + id + " not found");
+        }
+
+        return appUser;
+    }
+
+    public List<AppUser> loadListOfUsersByIds(List<Integer> ids) throws UsernameNotFoundException {
+
+        List<AppUser> appUsers = repository.findListOfUsersByIds(ids);
+
+        for(AppUser user : appUsers){
+            if (user == null || !user.isEnabled()) {
+                throw new UsernameNotFoundException("App user with id: " + user.getAppUserId() + " not found");
+            }
+        }
+
+
+        return appUsers;
+    }
+
     public AppUser create(String username, String password) {
         validate(username);
         validatePassword(password);

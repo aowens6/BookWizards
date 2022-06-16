@@ -60,7 +60,12 @@ values
     ("Wine Moms", "Dostoyevski and alcohol", 1, 1, '2022-07-07 15:00:00', '2022-07-07 15:45:00'),
     ("Prose Before Bros", "reading.", 1, 1, '2022-07-07 16:00:00', '2022-07-07 16:45:00');
     
-    
+insert into meeting_attendee
+values 
+ (1, 2),
+ (1, 1),
+ (2, 1),
+ (3, 2);
     
     
     
