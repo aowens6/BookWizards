@@ -1,6 +1,7 @@
 use book_wizards;
 
 set sql_safe_updates=0;
+delete from meeting;
 delete from book;
 delete from author;
 delete from genre;
@@ -9,6 +10,7 @@ delete from app_role;
 delete from app_user;
 set sql_safe_updates=1;
 
+alter table meeting auto_increment=1;
 alter table book auto_increment=1;
 alter table author auto_increment=1;
 alter table genre auto_increment=1;
