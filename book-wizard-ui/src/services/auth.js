@@ -20,12 +20,32 @@ export async function authenticate(credentials) {
         },
         body: JSON.stringify(credentials)
     }
-    console.log(init);
 
-    const response = await fetch(`${url}/authenticate`, init);
-    console.log(response);
+    const response = await fetch(`${url}/api/authenticate`, init);
+
     if (response.ok) {
         return makeUser(await response.json());
+    }
+
+    return Promise.reject();
+}
+
+export async function create(credentials) {
+
+    const init = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(credentials)
+    }
+
+    const response = await fetch(`${url}/api/create_account`, init);
+
+    //console.log(response.json());
+    
+    if (response.ok) {
+        return `User ${credentials.username} created. Navigate to Login page to login.`;
     }
 
     return Promise.reject();

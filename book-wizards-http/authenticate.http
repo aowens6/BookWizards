@@ -1,4 +1,4 @@
-@url = http://localhost:8080/authenticate
+@url = http://localhost:8080/api/authenticate
 
 POST {{url}} HTTP/1.1
 Content-Type: application/json
