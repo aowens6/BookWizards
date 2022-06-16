@@ -15,7 +15,7 @@ export function meetingResult(id) {
             "groupName": "",
             "description": "",
             "book": {},
-            "organizer": "",
+            "organizer": {},
             "startDateTime": "",
             "endDateTime": "",
             "attendees": []
@@ -28,11 +28,11 @@ export function meetingResult(id) {
         .then(m => {
             result.meeting.groupName = m.groupName;
             result.meeting.description = m.description;
-            bookId = m.BookId;
+            bookId = m.bookId;
             organizerId = m.organizerId;
             result.meeting.startDateTime = m.startDateTime;
             result.meeting.endDateTime = m.endDateTime;
-            attendeeIds = m.attendeeIds; // check java variable name from api
+            attendeeIds = m.meetingAttendeeIDs;
         })
         .catch(err => result.errors.push(err));
 
