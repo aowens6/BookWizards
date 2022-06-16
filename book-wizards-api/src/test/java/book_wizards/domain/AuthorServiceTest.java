@@ -10,8 +10,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -32,7 +34,9 @@ class AuthorServiceTest {
 
     @Test
     void findById() {
-
+        Author author = new Author();
+        when(repository.findById(3)).thenReturn(Optional.of(author));
+        assertEquals(author,service.findById(3));
     }
 
     @Test

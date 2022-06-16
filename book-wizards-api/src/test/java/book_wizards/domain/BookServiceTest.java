@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
@@ -38,7 +39,8 @@ class BookServiceTest {
         //setup
         Book book = new Book();
         book.setAuthorId(3);
-        book.setTitle("The alchemist");
+        book.setGenreId(2);
+        book.setTitle("JK");
 
 
         //behavior tested
@@ -49,11 +51,23 @@ class BookServiceTest {
     }
 
     @Test
+    void shouldNotAddMissing(){
+        Book book = new Book();
+        book.setAuthorId(3);
+        book.setGenreId(3);
+        book.setTitle(" ");
+
+        Result<Book> actual = service.add(book);
+
+        assertEquals(ResultType.INVALID, actual.getType());
+
+    }
+    @Test
     void update() {
         Book book = new Book();
-        book.setBookId(2);
         book.setAuthorId(3);
-        book.setTitle("The alchemist");
+        book.setGenreId(1);
+        book.setTitle("JK");
 
         when(repository.existsById(2)).thenReturn(true);
 
@@ -63,6 +77,25 @@ class BookServiceTest {
     }
 
     @Test
+    void shouldNotUpdateMissing(){
+        Book book = new Book();
+        book.setAuthorId(-12);
+        book.setTitle(" ");
+
+        Result<Book> actual = service.update(book);
+
+        assertEquals(ResultType.INVALID,actual.getType());
+    }
+
+    @Test
     void deleteById() {
+        when(repository.existsById(3)).thenReturn(true);
+        assertTrue(service.deleteById(3));
+    }
+
+    @Test
+    void shouldNotDeleteById(){
+        when(repository.existsById(3)).thenReturn(false);
+        assertFalse(service.deleteById(3));
     }
 }
