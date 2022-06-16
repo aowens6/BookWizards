@@ -36,6 +36,9 @@ class MeetingServiceTest {
     @Test
     void add() {
 
+
+
+
     }
 
     @Test
@@ -44,5 +47,7 @@ class MeetingServiceTest {
 
     @Test
     void deleteById() {
+        when(repository.existsById(3)).thenReturn(true);
+        assertTrue(service.deleteById(3));
     }
 }
