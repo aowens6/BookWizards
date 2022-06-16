@@ -62,6 +62,7 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository {
         }
 
         return users;
+
     }
 
 
