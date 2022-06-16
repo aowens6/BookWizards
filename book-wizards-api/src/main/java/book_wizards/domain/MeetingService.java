@@ -71,11 +71,9 @@ public class MeetingService {
 
     if(repository.existsById(id)){
       repository.deleteById(id);
-      return true;
-    }else{
-      return false;
     }
 
+    return repository.existsById(id);
   }
 
   private Result<Meeting> validate(Meeting meeting){

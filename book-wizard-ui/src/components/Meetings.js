@@ -23,12 +23,9 @@ function Meetings (){
                             <h5 className="card-title">{m.groupName}</h5>
                             <p>{m.description}</p>
                         </div>
-                        {user && <div className="card-footer d-flex justify-content-center">
-                        {user.authorities === "ADMIN" &&
-                            <Link to={`/delete/${m.meetingId}`} className="btn btn-danger me-2">Delete</Link>}
-                        {user.authorities === "ADMIN" &&
-                            <Link to={`/edit/${m.meetingId}`} className="btn btn-secondary">Edit</Link>}
-                    </div>}
+                        {user && <div className="card-footer d-flex justify-content-end">
+                            <Link to={`/meeting/${m.meetingId}`} className="btn btn-info me-2">More Info</Link>
+                        </div>}
                     </div>
                 )}
             </div>

@@ -1,0 +1,40 @@
+@url=http://localhost:8080/api/meeting
+
+
+GET {{url}} HTTP/1.1
+
+###
+
+GET {{url}}/2 HTTP/1.1
+
+###
+
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+  "groupName": "Paper and Ink",
+  "description": "Audio Books Suck",
+  "bookId": 1,
+  "organizerId": 1,
+  "startDateTime": "2022-07-09T15:00:00",
+  "endDateTime": "2022-07-09T15:45:00"
+}
+
+###
+
+PUT {{url}}/1 HTTP/1.1
+Content-Type: application/json
+
+{
+  "groupName": "Paper and Ink",
+  "description": "Audio Books Suck",
+  "bookId": 3,
+  "organizerId": 2,
+  "startDateTime": "2022-07-09T15:00:00",
+  "endDateTime": "2022-07-09T15:45:00"
+}
+
+###
+
+DELETE {{url}}/1 HTTP/1.1

@@ -1,6 +1,6 @@
 // const url = process.env.REACT_APP_API_URL;
-// const url = "http://localhost:8080";
-const url = "http://localhost:3010";
+const url = "http://localhost:8080";
+// const url = "http://localhost:3010";
 
 function makeUser(body) {
     const token = body.jwt_token;
@@ -21,10 +21,31 @@ export async function authenticate(credentials) {
         body: JSON.stringify(credentials)
     }
 
-    const response = await fetch(`${url}/authenticate`, init);
+    const response = await fetch(`${url}/api/authenticate`, init);
 
     if (response.ok) {
         return makeUser(await response.json());
+    }
+
+    return Promise.reject();
+}
+
+export async function create(credentials) {
+
+    const init = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(credentials)
+    }
+
+    const response = await fetch(`${url}/api/create_account`, init);
+
+    //console.log(response.json());
+    
+    if (response.ok) {
+        return `User ${credentials.username} created. Navigate to Login page to login.`;
     }
 
     return Promise.reject();

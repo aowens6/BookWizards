@@ -1,0 +1,9 @@
+@url = http://localhost:8080/api/create_account
+
+POST {{url}} HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bob@bob.com",
+    "password": "P@ssw0rd!"
+}

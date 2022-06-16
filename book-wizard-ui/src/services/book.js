@@ -1,13 +1,13 @@
-// const url = `${process.env.REACT_APP_API_URL}/api/meeting`;
-const url = "http://localhost:8080/api/meeting";
-// const url = "http://localhost:3010/meetings";
+// const url = `${process.env.REACT_APP_API_URL}/api/book`;
+const url = "http://localhost:8080/api/book";
+// const url = "http://localhost:3010/books";
 
 export async function findAll() {
     const response = await fetch(url);
     if (response.status === 200) {
         return response.json();
     }
-    throw new Error("fetch all meetings was not 200 OK");
+    throw new Error("fetch all books was not 200 OK");
 }
 
 export async function findById(id) {
@@ -20,30 +20,30 @@ export async function findById(id) {
         return Promise.reject(errors);
 
     } else if (!response.ok) {
-        return Promise.reject([`Request meeting failed. ${response.status}`])
+        return Promise.reject([`Request book failed. ${response.status}`])
     }
 
     return Promise.reject();
 }
 
-export async function save(meeting) {
+export async function save(book) {
 
     const init = {
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${localStorage.getItem("jwt")}`
         },
-        body: JSON.stringify(meeting)
+        body: JSON.stringify(book)
     }
 
     let saveUrl;
 
-    // update meeting
-    if (meeting.meetingId > 0) {
+    // update book
+    if (book.bookId > 0) {
         init.method = "PUT";
-        saveUrl = `${url}/${meeting.meetingId}`;
+        saveUrl = `${url}/${book.bookId}`;
 
-    // add meeting
+    // add book
     } else {
         init.method = "POST";
         saveUrl = url;
@@ -61,7 +61,7 @@ export async function save(meeting) {
 
 }
 
-export async function deleteById(meetingId) {
+export async function deleteById(bookId) {
 
     const init = {
         method: "DELETE",
@@ -70,7 +70,7 @@ export async function deleteById(meetingId) {
         }
     };
 
-    const response = await fetch(`${url}/${meetingId}`, init);
+    const response = await fetch(`${url}/${bookId}`, init);
     if (!response.ok) {
         throw new Error("Delete was not 204.");
     }

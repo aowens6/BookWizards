@@ -16,6 +16,8 @@ public class Meeting {
   private LocalDateTime startDateTime;
   private LocalDateTime endDateTime;
 
+  public Meeting(){}
+
   public Meeting(int meetingId, String groupName, String description, int bookId, int organizerId, LocalDateTime startDateTime, LocalDateTime endDateTime) {
     this.meetingId = meetingId;
     this.groupName = groupName;
