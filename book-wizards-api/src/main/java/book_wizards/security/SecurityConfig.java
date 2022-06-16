@@ -29,6 +29,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // TODO add antMatchers here to configure access to specific API endpoints
                 .antMatchers("/api/authenticate").permitAll()
                 .antMatchers("/api/create_account").permitAll()
+                .antMatchers("/api/findById/*").permitAll()
+                .antMatchers("/api/findByIds/*").permitAll()
                 // all endpoints to protect go here
                 .antMatchers(HttpMethod.GET, "/api/author", "/api/author/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/author").hasAnyRole("USER", "ADMIN")

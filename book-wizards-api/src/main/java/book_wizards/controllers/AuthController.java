@@ -2,7 +2,6 @@ package book_wizards.controllers;
 
 import book_wizards.models.AppUser;
 import book_wizards.domain.AppUserService;
-import book_wizards.models.Book;
 import book_wizards.security.JwtConverter;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -33,8 +32,18 @@ public class AuthController {
         this.service = service;
     }
 
-    @GetMapping("/{id}")
-    public UserDetails findById(@PathVariable int id){ return service.loadUserById(id);}
+    @GetMapping("/findById/{id}")
+    public UserDetails findById(@PathVariable int id){
+        System.out.println(id);
+        return service.loadUserById(id);
+    }
+
+
+    @RequestMapping(value = "/findByIds/{ids}", method = RequestMethod.GET)
+    @ResponseBody
+    public List<AppUser> findUsersByListOfIds (@PathVariable List<Integer> ids) {
+        return service.loadListOfUsersByIds(ids);
+    }
 
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody Map<String, String> credentials) {

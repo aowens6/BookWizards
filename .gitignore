@@ -108,3 +108,13 @@ dist
 
 # IntelliJ
 .idea/
+out/
+
+# Maven
+target/
+
+# npm
+node_modules/
+
+# macOS
+.DS_Store
