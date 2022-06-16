@@ -8,16 +8,16 @@ function Register() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [hasError, setHasError] = useState(false);
+    const [message, setMessage] = useState("");
 
-    //const navigate = useNavigate();
-
-    //const { login } = useContext(AuthContext);
 
     const handleUsername = (evt) => setUsername(evt.target.value);
     const handlePassword = (evt) => setPassword(evt.target.value);
     const handleSubmit = (evt) => {
         evt.preventDefault();
         create({ username, password })
+            .then(m => setMessage(m))
+            .catch(e => console.log(e)); // want to edit this error message code
     };
 
     return (
@@ -38,8 +38,12 @@ function Register() {
                 <Link to="/login" className="btn btn-secondary ms-2">Cancel</Link>
             </div>
 
+            {(!hasError && message) && <div className="alert alert-success mt-3">
+                {message} <Link to="/login" className="btn btn-primary ms-2">Login</Link>
+            </div>}
+
             {hasError && <div className="alert alert-danger mt-3">
-                Bad Credentials
+                Duplicate Username
             </div>}
         </form>);
 }

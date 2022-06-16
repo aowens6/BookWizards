@@ -42,13 +42,13 @@ export async function create(credentials) {
 
     const response = await fetch(`${url}/api/create_account`, init);
 
-    console.log(response);
+    //console.log(response.json());
+    
+    if (response.ok) {
+        return `User ${credentials.username} created. Navigate to Login page to login.`;
+    }
 
-    //if (response.ok) {
-    //    return makeUser(await response.json());
-    //}
-
-    //return Promise.reject();
+    return Promise.reject();
 }
 
 export async function refresh() {
