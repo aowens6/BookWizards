@@ -95,9 +95,23 @@ public class MeetingService {
     return result;
   }
 
+  public Result<Meeting> removeUserFromMeeting(Meeting meeting, MeetingAttendee meetingAttendee){
+
+    Result<Meeting> updatedMeeting = new Result<>();
+
+    if(attendeeRepository.removeAttendeeFromMeeting(meetingAttendee)){
+      updatedMeeting = update(meeting);
+    }else{
+      updatedMeeting.addMessage("That user is not signed up for this meeting", ResultType.INVALID);
+    }
+
+    return updatedMeeting;
+  }
+
   public boolean deleteById(int id){
 
     if(repository.existsById(id)){
+      attendeeRepository.deleteAllByMeetingId(id);
       repository.deleteById(id);
     }
 

@@ -1,5 +1,7 @@
 package book_wizards.data;
 
+import book_wizards.data.Mappers.AppUserMapper;
+import book_wizards.data.Mappers.FindUserMapper;
 import book_wizards.models.AppUser;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -39,13 +41,13 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository {
     @Override
     public AppUser findById(int id) {
 
-        List<String> roles = getRolesById(id);
+        List<String> roles = new ArrayList<>();
 
         final String sql = "select app_user_id, username, password_hash, disabled "
                 + "from app_user "
                 + "where app_user_id = ?;";
 
-        return jdbcTemplate.query(sql, new AppUserMapper(roles), id)
+        return jdbcTemplate.query(sql, new FindUserMapper(roles), id)
                 .stream()
                 .findFirst().orElse(null);
 

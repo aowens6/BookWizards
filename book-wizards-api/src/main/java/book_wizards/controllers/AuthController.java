@@ -34,13 +34,13 @@ public class AuthController {
 
     @GetMapping("/findById/{id}")
     public UserDetails findById(@PathVariable int id){
-        System.out.println(id);
+
+        UserDetails user = service.loadUserById(id);
+
         return service.loadUserById(id);
     }
 
-
-    @RequestMapping(value = "/findByIds/{ids}", method = RequestMethod.GET)
-    @ResponseBody
+    @GetMapping("/findByIds/{ids}")
     public List<AppUser> findUsersByListOfIds (@PathVariable List<Integer> ids) {
         return service.loadListOfUsersByIds(ids);
     }
