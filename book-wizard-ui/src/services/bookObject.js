@@ -16,15 +16,18 @@ export function bookResult(id) {
     }
 
     findBookById(id)
-        .then(b => result.book.title = b.title)
-        .catch(err => result.errors.push(err));
+        .then(b => {
 
-    findAuthorById(id)
-        .then(a => result.book.author = `${a.firstName} ${a.lastName}`)
-        .catch(err => result.errors.push(err));
+            result.book.title = b.title;
 
-    findGenreById(id)
-        .then(g => result.book.genre = g.genreName)
+            findAuthorById(b.authorId)
+                .then(a => result.book.author = `${a.firstName} ${a.lastName}`)
+                .catch(err => result.errors.push(err));
+
+            findGenreById(b.genreId)
+                .then(g => result.book.genre = g.genreName)
+                .catch(err => result.errors.push(err));
+        })
         .catch(err => result.errors.push(err));
 
     return result;
