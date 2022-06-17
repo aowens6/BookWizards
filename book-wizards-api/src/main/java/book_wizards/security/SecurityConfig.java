@@ -1,6 +1,5 @@
 package book_wizards.security;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -48,6 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/api/meeting").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/meeting/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/meeting/*").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/meeting/removeAttendee/*/*").hasAnyRole("USER", "ADMIN")
                 // require authentication for any request...
                 .anyRequest().authenticated()
                 .and()

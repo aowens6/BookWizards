@@ -2,6 +2,7 @@ package book_wizards.domain;
 
 import book_wizards.data.AppUserRepository;
 import book_wizards.models.AppUser;
+import book_wizards.models.PublicUser;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -33,27 +34,26 @@ public class AppUserService implements UserDetailsService {
         return appUser;
     }
 
-    public UserDetails loadUserById(int id) throws UsernameNotFoundException {
+    public PublicUser loadUserById(int id) throws UsernameNotFoundException {
 
-        AppUser appUser = repository.findById(id);
+        PublicUser appUser = repository.findById(id);
 
-        if (appUser == null || !appUser.isEnabled()) {
+        if (appUser == null) {
             throw new UsernameNotFoundException("App user with id: " + id + " not found");
         }
 
         return appUser;
     }
 
-    public List<AppUser> loadListOfUsersByIds(List<Integer> ids) throws UsernameNotFoundException {
+    public List<PublicUser> loadListOfUsersByIds(List<Integer> ids) throws UsernameNotFoundException {
 
-        List<AppUser> appUsers = repository.findListOfUsersByIds(ids);
+        List<PublicUser> appUsers = repository.findListOfUsersByIds(ids);
 
-        for(AppUser user : appUsers){
-            if (user == null || !user.isEnabled()) {
+        for(PublicUser user : appUsers){
+            if (user == null) {
                 throw new UsernameNotFoundException("App user with id: " + user.getAppUserId() + " not found");
             }
         }
-
 
         return appUsers;
     }

@@ -28,3 +28,7 @@ Content-Type: application/json
   "username": "bob@jones.com",
   "password": "P@ssw0rd!"
 }
+
+###
+
+PUT {{url}}/removeAttendee/3/2 HTTP/1.1

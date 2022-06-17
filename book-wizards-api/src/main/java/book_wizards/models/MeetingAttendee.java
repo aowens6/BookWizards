@@ -5,7 +5,11 @@ public class MeetingAttendee {
   private int meetingId;
   private int attendeeId;
 
-  public MeetingAttendee(int meeting_id, int app_user_id) {
+  public MeetingAttendee(){}
+
+  public MeetingAttendee(int meetingId, int attendeeId) {
+    this.meetingId = meetingId;
+    this.attendeeId = attendeeId;
   }
 
   public int getMeetingId() {

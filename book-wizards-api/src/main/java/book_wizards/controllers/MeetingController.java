@@ -34,7 +34,6 @@ public class MeetingController {
     return new ResponseEntity<Meeting>(searched, HttpStatus.OK);
   }
 
-  // remove user from meeting --- probably want to just pass in attendee id instead of attendee object
 
   @PostMapping
   public ResponseEntity<Object> add(@RequestBody Meeting meeting) {
@@ -44,6 +43,7 @@ public class MeetingController {
     }
     return ErrorResponse.build(result);
   }
+
 
   @PutMapping("/{id}")
   public ResponseEntity<Object> update(@PathVariable int id, @RequestBody Meeting meeting) {
@@ -60,6 +60,23 @@ public class MeetingController {
   }
 
 
+  @PutMapping("/removeAttendee/{meetingId}/{attendeeId}")
+  public ResponseEntity<Object> removeAttendeeFromMeeting(@PathVariable("meetingId") int meetingId,
+                                                          @PathVariable("attendeeId") int attendeeId,
+                                                          @RequestBody Meeting meeting){
+
+    if (meetingId != meeting.getMeetingId()) {
+      return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    Result<Meeting> result = service.removeUserFromMeeting(meeting, attendeeId);
+
+    if (result.isSuccess()) {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    return ErrorResponse.build(result);
+  }
 
   @DeleteMapping("/{id}")
   public ResponseEntity<Void> deleteById(@PathVariable int id) {

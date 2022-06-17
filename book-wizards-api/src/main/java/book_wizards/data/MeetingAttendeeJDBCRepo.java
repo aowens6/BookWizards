@@ -44,12 +44,9 @@ public class MeetingAttendeeJDBCRepo implements MeetingAttendeeRepository{
   @Override
   public boolean removeAttendeeFromMeeting(MeetingAttendee meetingAttendee) {
 
-    final String sql = "delete * from meeting_attendee where meeting_id = ? and app_user_id = ?;";
+    final String sql = "delete from meeting_attendee where meeting_id = ? and app_user_id = ?;";
     return jdbcTemplate.update(sql, meetingAttendee.getMeetingId(), meetingAttendee.getAttendeeId()) > 0;
 
   }
-
-
-  //Delete goes here!!
 
 }

@@ -3,6 +3,7 @@ package book_wizards.data;
 import book_wizards.data.Mappers.AppUserMapper;
 import book_wizards.data.Mappers.FindUserMapper;
 import book_wizards.models.AppUser;
+import book_wizards.models.PublicUser;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.security.core.GrantedAuthority;
@@ -39,27 +40,33 @@ public class AppUserJdbcTemplateRepository implements AppUserRepository {
     }
 
     @Override
-    public AppUser findById(int id) {
+    public PublicUser findById(int id) {
 
         List<String> roles = new ArrayList<>();
 
-        final String sql = "select app_user_id, username, password_hash, disabled "
+        final String sql = "select app_user_id, username "
                 + "from app_user "
                 + "where app_user_id = ?;";
 
-        return jdbcTemplate.query(sql, new FindUserMapper(roles), id)
+        PublicUser user = jdbcTemplate.query(sql, new FindUserMapper(), id)
+                .stream()
+                .findFirst().orElse(null);
+
+        System.out.println(user.getAppUserId() + " " + user.getUsername());
+
+        return jdbcTemplate.query(sql, new FindUserMapper(), id)
                 .stream()
                 .findFirst().orElse(null);
 
     }
 
     @Override
-    public List<AppUser> findListOfUsersByIds(List<Integer> ids) {
+    public List<PublicUser> findListOfUsersByIds(List<Integer> ids) {
 
-        List<AppUser> users = new ArrayList<>();
+        List<PublicUser> users = new ArrayList<>();
 
         for(int id : ids){
-            AppUser user = findById(id);
+            PublicUser user = findById(id);
             users.add(user);
         }
 

@@ -7,10 +7,8 @@ import book_wizards.models.MeetingAttendee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class MeetingService {
@@ -95,7 +93,9 @@ public class MeetingService {
     return result;
   }
 
-  public Result<Meeting> removeUserFromMeeting(Meeting meeting, MeetingAttendee meetingAttendee){
+  public Result<Meeting> removeUserFromMeeting(Meeting meeting, int attendeeId){
+
+    MeetingAttendee meetingAttendee = new MeetingAttendee(meeting.getMeetingId(), attendeeId);
 
     Result<Meeting> updatedMeeting = new Result<>();
 

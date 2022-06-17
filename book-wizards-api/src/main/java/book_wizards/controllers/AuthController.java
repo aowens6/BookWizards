@@ -1,7 +1,8 @@
 package book_wizards.controllers;
 
-import book_wizards.models.AppUser;
 import book_wizards.domain.AppUserService;
+import book_wizards.models.AppUser;
+import book_wizards.models.PublicUser;
 import book_wizards.security.JwtConverter;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ValidationException;
@@ -33,15 +33,15 @@ public class AuthController {
     }
 
     @GetMapping("/findById/{id}")
-    public UserDetails findById(@PathVariable int id){
+    public PublicUser findById(@PathVariable int id){
 
-        UserDetails user = service.loadUserById(id);
+        PublicUser user = service.loadUserById(id);
 
         return service.loadUserById(id);
     }
 
     @GetMapping("/findByIds/{ids}")
-    public List<AppUser> findUsersByListOfIds (@PathVariable List<Integer> ids) {
+    public List<PublicUser> findUsersByListOfIds (@PathVariable List<Integer> ids) {
         return service.loadListOfUsersByIds(ids);
     }
 

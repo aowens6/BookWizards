@@ -2,7 +2,6 @@ package book_wizards.controllers;
 
 import book_wizards.domain.GenreService;
 import book_wizards.domain.Result;
-import book_wizards.models.Book;
 import book_wizards.models.Genre;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -27,6 +27,22 @@ PUT {{url}}/1 HTTP/1.1
 Content-Type: application/json
 
 {
+    "meetingId": 3,
+  "groupName": "Paper and Ink",
+  "description": "Audio Books Suck",
+  "bookId": 3,
+  "organizerId": 2,
+  "startDateTime": "2022-07-09T15:00:00",
+  "endDateTime": "2022-07-09T15:45:00"
+}
+
+###
+
+PUT {{url}}/removeAttendee/3/2 HTTP/1.1
+Content-Type: application/json
+
+{
+    "meetingId" : 3,
   "groupName": "Paper and Ink",
   "description": "Audio Books Suck",
   "bookId": 3,
