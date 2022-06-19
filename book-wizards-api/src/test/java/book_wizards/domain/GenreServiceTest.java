@@ -42,7 +42,6 @@ class GenreServiceTest {
     @Test
     void shouldNotFindById(){
         Genre genre = new Genre();
-        when(reposito)
     }
 
     @Test
