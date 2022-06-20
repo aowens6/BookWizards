@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -81,5 +82,12 @@ public class AuthController {
         HashMap<String, Integer> map = new HashMap<>();
         map.put("appUserId", appUser.getAppUserId());
         return new ResponseEntity<>(map, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refresh(@AuthenticationPrincipal AppUser user) {
+        HashMap<String, String> payload = new HashMap<>();
+        payload.put("jwt_token", jwtConverter.getTokenFromUser(user));
+        return new ResponseEntity<>(payload, HttpStatus.OK);
     }
 }
