@@ -1,6 +1,8 @@
 package book_wizards.domain;
 
+import book_wizards.data.AuthorJPARepository;
 import book_wizards.data.BookJPARepository;
+import book_wizards.data.GenreJPARepository;
 import book_wizards.models.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,18 +13,40 @@ import java.util.List;
 public class BookService {
 
   @Autowired
-  private final BookJPARepository repository;
+  private final BookJPARepository bookRepo;
 
-  public BookService(BookJPARepository repository) {
-    this.repository = repository;
+  @Autowired
+  private final AuthorJPARepository authorRepo;
+
+  @Autowired
+  private final GenreJPARepository genreRepo;
+
+  public BookService(BookJPARepository repository, AuthorJPARepository authorRepo, GenreJPARepository genreRepo) {
+    this.bookRepo = repository;
+    this.authorRepo = authorRepo;
+    this.genreRepo = genreRepo;
   }
 
   public List<Book> findAll(){
-    return repository.findAll();
+
+    List<Book> allBooks = bookRepo.findAll();
+
+    for(Book b : allBooks){
+      b.setAuthor(authorRepo.getById(b.getAuthorId()));
+      b.setGenre(genreRepo.getById(b.getGenreId()));
+    }
+
+    return allBooks;
   }
 
   public Book findById(int id){
-    return repository.findById(id).orElse(null);
+
+    Book book = bookRepo.findById(id).orElse(null);
+
+    book.setAuthor(authorRepo.getById(book.getAuthorId()));
+    book.setGenre(genreRepo.getById(book.getGenreId()));
+
+    return book;
   }
 
   public Result<Book> add(Book book){
@@ -37,7 +61,7 @@ public class BookService {
       return result;
     }
 
-    book = repository.save(book);
+    book = bookRepo.save(book);
     result.setPayload(book);
     return result;
   }
@@ -54,12 +78,12 @@ public class BookService {
       return result;
     }
 
-    if (!repository.existsById(book.getBookId())) {
+    if (!bookRepo.existsById(book.getBookId())) {
       String msg = String.format("book Id: %s, not found", book.getBookId());
       result.addMessage(msg, ResultType.NOT_FOUND);
     }
 
-    book = repository.save(book);
+    book = bookRepo.save(book);
     result.setPayload(book);
 
     return result;
@@ -67,8 +91,8 @@ public class BookService {
 
   public boolean deleteById(int id){
 
-    if(repository.existsById(id)){
-      repository.deleteById(id);
+    if(bookRepo.existsById(id)){
+      bookRepo.deleteById(id);
       return true;
     }else{
       return false;

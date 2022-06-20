@@ -1,7 +1,10 @@
 package book_wizards.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -16,6 +19,14 @@ public class Book {
   private String title;
   private int authorId;
   private int genreId;
+
+  @Transient
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  private Author author;
+
+  @Transient
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  private Genre genre;
 
   public int getBookId() {
     return bookId;
@@ -47,5 +58,21 @@ public class Book {
 
   public void setGenreId(int genreId) {
     this.genreId = genreId;
+  }
+
+  public Author getAuthor() {
+    return author;
+  }
+
+  public void setAuthor(Author author) {
+    this.author = author;
+  }
+
+  public Genre getGenre() {
+    return genre;
+  }
+
+  public void setGenre(Genre genre) {
+    this.genre = genre;
   }
 }
