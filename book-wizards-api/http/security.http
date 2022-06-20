@@ -7,6 +7,10 @@ GET {{url}}/findById/1 HTTP/1.1
 
 ###
 
+GET {{url}}/findByUsername/john@smith.com HTTP/1.1
+
+###
+
 GET {{url}}/findByIds/1,2 HTTP/1.1
 
 ###

@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/create_account").permitAll()
                 .antMatchers("/api/findById/*").permitAll()
                 .antMatchers("/api/findByIds/*").permitAll()
+                .antMatchers("/api/findByUsername/*").permitAll()
                 // all endpoints to protect go here
                 .antMatchers(HttpMethod.POST, "/api/refresh").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/author", "/api/author/*").permitAll()
@@ -49,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.PUT, "/api/meeting/*").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/api/meeting/*").hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/meeting/removeAttendee/*/*").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.PUT, "/api/meeting/addAttendee/*/*").hasAnyRole("USER", "ADMIN")
                 // require authentication for any request...
                 .anyRequest().authenticated()
                 .and()
