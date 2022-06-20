@@ -2,6 +2,7 @@ package book_wizards.controllers;
 
 import book_wizards.domain.AppUserService;
 import book_wizards.models.AppUser;
+import book_wizards.models.Meeting;
 import book_wizards.models.PublicUser;
 import book_wizards.security.JwtConverter;
 import org.springframework.dao.DuplicateKeyException;
@@ -11,7 +12,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.ValidationException;
@@ -31,6 +34,19 @@ public class AuthController {
         this.authManager = authManager;
         this.jwtConverter = jwtConverter;
         this.service = service;
+    }
+
+    @GetMapping("/findByUsername/{username}")
+    public ResponseEntity<?> findByUsername(@PathVariable String username) {
+
+        PublicUser searched = service.loadPublicUserByUsername(username);
+
+
+        if(searched == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<PublicUser>(searched, HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")

@@ -85,12 +85,34 @@ public class MeetingService {
     }
 
     List<Integer> attendeesIDs = attendeeRepository.findAttendeesByMeetingId(meeting.getMeetingId());
+
     meeting.setMeetingAttendees(attendeesIDs);
 
     meeting = repository.save(meeting);
     result.setPayload(meeting);
 
     return result;
+  }
+
+  public Result<Meeting> addAttendeeToMeeting(Meeting meeting, int attendeeId){
+
+    List<Integer> allAttendees = attendeeRepository.findAttendeesByMeetingId(meeting.getMeetingId());
+
+    MeetingAttendee meetingAttendee = new MeetingAttendee(meeting.getMeetingId(), attendeeId);
+
+    Result<Meeting> updatedMeeting = new Result<>();
+
+    for(int a : allAttendees){
+      if(a == attendeeId){
+        updatedMeeting.addMessage("That user is already signed up for this meeting", ResultType.INVALID);
+      }
+    }
+
+    if(attendeeRepository.create(meetingAttendee)){
+      updatedMeeting = update(meeting);
+    }
+
+    return updatedMeeting;
   }
 
   public Result<Meeting> removeUserFromMeeting(Meeting meeting, int attendeeId){

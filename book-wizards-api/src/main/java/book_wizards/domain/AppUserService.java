@@ -3,6 +3,7 @@ package book_wizards.domain;
 import book_wizards.data.AppUserRepository;
 import book_wizards.models.AppUser;
 import book_wizards.models.PublicUser;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,6 +33,18 @@ public class AppUserService implements UserDetailsService {
         }
 
         return appUser;
+    }
+
+    public PublicUser loadPublicUserByUsername(String username) throws UsernameNotFoundException {
+        AppUser appUser = repository.findByUsername(username);
+
+        if (appUser == null || !appUser.isEnabled()) {
+            throw new UsernameNotFoundException(username + " not found");
+        }
+
+        PublicUser publicUser = new PublicUser(appUser.getAppUserId(), appUser.getUsername());
+
+        return publicUser;
     }
 
     public PublicUser loadUserById(int id) throws UsernameNotFoundException {
