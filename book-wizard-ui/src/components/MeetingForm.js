@@ -11,6 +11,7 @@ function MeetingForm (){
 
     const [addBook, setAddBook] = useState(false);
     const [booksAreSet, setBooksAreSet] = useState(false);
+    const [errorMessages, setErrorMessages] = useState([]);
     const [books, setBooks] = useState([]);
     const [startDateTime, setStartDateTime] = useState(new Date());
     const [endDateTime, setEndDateTime] = useState(new Date());
@@ -18,6 +19,16 @@ function MeetingForm (){
     const [book, setBook] = useState({
         "bookId": 0
     });
+
+    const [meeting, setMeeting] = useState({
+        "meetingId": 0,
+        "groupName": "",
+        "description": "",
+        "bookId": 0,
+        "organizerId": 0,
+        "startDateTime": "",
+        "endDateTime": ""
+    })
 
     useEffect(() => {
         allBookResultsTest()
@@ -30,18 +41,51 @@ function MeetingForm (){
 
     const handleSubmit = (evt) => {
         evt.preventDefault();
+        
+        const tmpErrorMessages = [];
+        const tmpMeeting = {...meeting};
+
+        if (addBook){
+
+            const bookTitleInputBox = document.getElementById("bookTitle");
+            const bookTitleValue = bookTitleInputBox.value;
+            const bookAuthorInputBox = document.getElementById("bookAuthor");
+            const bookAuthorValue = bookAuthorInputBox.value;
+            const bookGenreInputBox = document.getElementById("bookGenre");
+            const bookGenreValue = bookGenreInputBox.value;
+
+            if (bookTitleValue.length === 0){
+                tmpErrorMessages.push("Please enter book title");
+            }
+            if (bookAuthorValue.length === 0){
+                tmpErrorMessages.push("Please enter book author");
+            }
+            if (bookGenreValue.length === 0){
+                tmpErrorMessages.push("Please enter book genre");
+            }
+
+        } else {
+
+            const bookSelectBox = document.getElementById("search-select");
+            const selectedBookId = bookSelectBox.options[bookSelectBox.selectedIndex].value;
+            if (selectedBookId === "Choose a book...") {
+                tmpErrorMessages.push("Please choose book from list, or add a book");
+            } else {
+
+            }
+        }
+
     }
 
     function toggleAddMode(){
         setAddBook(!addBook);
-        console.log(user.sub);
+        //console.log(user.sub);
+
     }
+
     function onChange(){
-
+        //console.log(startDateTime);
     }
-
-    // <form onSubmit={handleSubmit} className="m-5">
-    // {!addBook ? : }
 
     return (
 
@@ -65,12 +109,12 @@ function MeetingForm (){
                                 value={book.title} onChange={onChange} />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="bookTitle">Book Author</label>
+                            <label htmlFor="bookAuthor">Book Author</label>
                             <input type="url" className="form-control" id="bookAuthor" name="bookAuthor"
                                 value={book.title} onChange={onChange} />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="bookTitle">Book Genre</label>
+                            <label htmlFor="bookGenre">Book Genre</label>
                             <input type="url" className="form-control" id="bookGenre" name="bookGenre"
                                 value={book.title} onChange={onChange} />
                         </div>
@@ -91,11 +135,11 @@ function MeetingForm (){
             <div>
                 <div className="m-4">
                     <h5>Start Time</h5>
-                    <DateTimePicker onChange={setStartDateTime} value={startDateTime} />
+                    <DateTimePicker format="yyyy-MM-dd HH:mm:ss" onChange={setStartDateTime} value={startDateTime} />
                 </div>
                 <div className="m-4">
                     <h5>End Time</h5>
-                    <DateTimePicker onChange={setEndDateTime} value={endDateTime} />
+                    <DateTimePicker format="yyyy-MM-dd HH:mm:ss" onChange={setEndDateTime} value={endDateTime} />
                 </div>
             </div>
             </form>
