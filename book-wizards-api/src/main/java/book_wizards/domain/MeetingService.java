@@ -1,5 +1,7 @@
 package book_wizards.domain;
 
+import book_wizards.data.AppUserRepository;
+import book_wizards.data.BookJPARepository;
 import book_wizards.data.MeetingAttendeeRepository;
 import book_wizards.data.MeetingJPARepository;
 import book_wizards.models.Meeting;
@@ -19,10 +21,18 @@ public class MeetingService {
   @Autowired
   private final MeetingAttendeeRepository attendeeRepository;
 
+  @Autowired
+  private final BookService bookService;
 
-  public MeetingService(MeetingJPARepository repository, MeetingAttendeeRepository attendeeRepository) {
+  @Autowired
+  private final AppUserRepository appUserRepository;
+
+
+  public MeetingService(MeetingJPARepository repository, MeetingAttendeeRepository attendeeRepository, BookJPARepository bookRepo, BookService bookService, AppUserRepository appUserRepository) {
     this.repository = repository;
     this.attendeeRepository = attendeeRepository;
+    this.bookService = bookService;
+    this.appUserRepository = appUserRepository;
   }
 
   public List<Meeting> findAll(){
@@ -33,6 +43,8 @@ public class MeetingService {
 
       List<Integer> attendeesIDs = attendeeRepository.findAttendeesByMeetingId(m.getMeetingId());
       m.setMeetingAttendees(attendeesIDs);
+      m.setOrganizer(appUserRepository.findById(m.getOrganizerId()));
+      m.setBook(bookService.findById(m.getBookId()));
     }
 
     return meetings;
@@ -45,6 +57,8 @@ public class MeetingService {
 
     List<Integer> attendeesIDs = attendeeRepository.findAttendeesByMeetingId(id);
     meeting.setMeetingAttendees(attendeesIDs);
+    meeting.setOrganizer(appUserRepository.findById(meeting.getOrganizerId()));
+    meeting.setBook(bookService.findById(meeting.getBookId()));
 
     return meeting;
 

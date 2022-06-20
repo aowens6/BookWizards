@@ -4,7 +4,7 @@ GET {{url}} HTTP/1.1
 
 ###
 
-GET {{url}}/2 HTTP/1.1
+GET {{url}}/1 HTTP/1.1
 
 ###
 
@@ -26,7 +26,6 @@ Content-Type: application/json
 {
   "id": 1,
   "title": "Cat in the Hat"
-
 }
 
 ###
