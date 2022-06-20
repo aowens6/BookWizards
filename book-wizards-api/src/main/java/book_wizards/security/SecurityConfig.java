@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/findById/*").permitAll()
                 .antMatchers("/api/findByIds/*").permitAll()
                 // all endpoints to protect go here
+                .antMatchers(HttpMethod.POST, "/api/refresh").authenticated()
                 .antMatchers(HttpMethod.GET, "/api/author", "/api/author/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/author").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.PUT, "/api/author/*").hasAnyRole("USER", "ADMIN")

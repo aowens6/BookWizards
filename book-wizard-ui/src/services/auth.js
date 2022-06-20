@@ -64,7 +64,7 @@ export async function refresh() {
         }
     };
 
-    const response = await fetch(`${url}/refresh`, init);
+    const response = await fetch(`${url}/api/refresh`, init);
     if (response.ok) {
         return makeUser(await response.json());
     }

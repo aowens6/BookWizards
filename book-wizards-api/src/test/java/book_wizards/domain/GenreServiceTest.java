@@ -39,11 +39,10 @@ class GenreServiceTest {
         assertEquals(genre,service.findById(anyInt()));
     }
 
-//    @Test
-//    void shouldNotFindById(){
-//        Genre genre = new Genre();
-//        when(reposito)
-//    }
+    @Test
+    void shouldNotFindById(){
+        Genre genre = new Genre();
+    }
 
     @Test
     void add() {
