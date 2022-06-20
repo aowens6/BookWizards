@@ -1,6 +1,7 @@
 package book_wizards.data;
 
 import book_wizards.models.AppUser;
+import book_wizards.models.PublicUser;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,10 +13,10 @@ public interface AppUserRepository {
     AppUser findByUsername(String username);
 
     @Transactional
-    AppUser findById(int id);
+    PublicUser findById(int id);
 
     @Transactional
-    List<AppUser> findListOfUsersByIds(List<Integer> ids);
+    List<PublicUser> findListOfUsersByIds(List<Integer> ids);
 
     @Transactional
     AppUser create(AppUser user);

@@ -1,4 +1,4 @@
-package book_wizards.data;
+package book_wizards.data.Mappers;
 
 import book_wizards.models.AppUser;
 import org.springframework.jdbc.core.RowMapper;

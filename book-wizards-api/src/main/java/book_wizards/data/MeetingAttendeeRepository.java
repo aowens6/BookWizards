@@ -12,4 +12,8 @@ public interface MeetingAttendeeRepository {
 
   boolean create(MeetingAttendee meetingAttendee); //signing user up for meeting
 
+  boolean deleteAllByMeetingId(int meetingId);
+
+  boolean removeAttendeeFromMeeting(MeetingAttendee meetingAttendee); // un-signing up user from meeting
+
 }

@@ -1,7 +1,6 @@
 package book_wizards.domain;
 
 import book_wizards.data.GenreJPARepository;
-import book_wizards.models.Book;
 import book_wizards.models.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

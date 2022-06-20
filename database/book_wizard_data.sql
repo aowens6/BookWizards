@@ -68,4 +68,6 @@ values
  (3, 2);
     
     
+select * from meeting;
+select * from meeting_attendee;
     

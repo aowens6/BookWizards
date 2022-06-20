@@ -7,10 +7,8 @@ import book_wizards.models.MeetingAttendee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class MeetingService {
@@ -95,9 +93,25 @@ public class MeetingService {
     return result;
   }
 
+  public Result<Meeting> removeUserFromMeeting(Meeting meeting, int attendeeId){
+
+    MeetingAttendee meetingAttendee = new MeetingAttendee(meeting.getMeetingId(), attendeeId);
+
+    Result<Meeting> updatedMeeting = new Result<>();
+
+    if(attendeeRepository.removeAttendeeFromMeeting(meetingAttendee)){
+      updatedMeeting = update(meeting);
+    }else{
+      updatedMeeting.addMessage("That user is not signed up for this meeting", ResultType.INVALID);
+    }
+
+    return updatedMeeting;
+  }
+
   public boolean deleteById(int id){
 
     if(repository.existsById(id)){
+      attendeeRepository.deleteAllByMeetingId(id);
       repository.deleteById(id);
     }
 

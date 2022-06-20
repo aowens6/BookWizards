@@ -34,6 +34,7 @@ public class MeetingController {
     return new ResponseEntity<Meeting>(searched, HttpStatus.OK);
   }
 
+
   @PostMapping
   public ResponseEntity<Object> add(@RequestBody Meeting meeting) {
     Result<Meeting> result = service.add(meeting);
@@ -43,6 +44,7 @@ public class MeetingController {
     return ErrorResponse.build(result);
   }
 
+
   @PutMapping("/{id}")
   public ResponseEntity<Object> update(@PathVariable int id, @RequestBody Meeting meeting) {
     if (id != meeting.getMeetingId()) {
@@ -50,6 +52,25 @@ public class MeetingController {
     }
 
     Result<Meeting> result = service.update(meeting);
+    if (result.isSuccess()) {
+      return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    return ErrorResponse.build(result);
+  }
+
+
+  @PutMapping("/removeAttendee/{meetingId}/{attendeeId}")
+  public ResponseEntity<Object> removeAttendeeFromMeeting(@PathVariable("meetingId") int meetingId,
+                                                          @PathVariable("attendeeId") int attendeeId,
+                                                          @RequestBody Meeting meeting){
+
+    if (meetingId != meeting.getMeetingId()) {
+      return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    Result<Meeting> result = service.removeUserFromMeeting(meeting, attendeeId);
+
     if (result.isSuccess()) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
