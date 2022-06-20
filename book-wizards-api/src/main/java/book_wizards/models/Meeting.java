@@ -1,5 +1,7 @@
 package book_wizards.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Transient;
@@ -19,7 +21,17 @@ public class Meeting {
   private LocalDateTime endDateTime;
 
   @Transient
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
   private List<Integer> meetingAttendeeIDs;
+
+  @Transient
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  private Book book;
+
+  @Transient
+  @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+  private PublicUser organizer;
+
 
   public Meeting(){}
 
@@ -95,5 +107,21 @@ public class Meeting {
 
   public void setMeetingAttendees(List<Integer> meetingAttendeeIDs) {
     this.meetingAttendeeIDs = meetingAttendeeIDs;
+  }
+
+  public Book getBook() {
+    return book;
+  }
+
+  public void setBook(Book book) {
+    this.book = book;
+  }
+
+  public PublicUser getOrganizer() {
+    return organizer;
+  }
+
+  public void setOrganizer(PublicUser organizer) {
+    this.organizer = organizer;
   }
 }
