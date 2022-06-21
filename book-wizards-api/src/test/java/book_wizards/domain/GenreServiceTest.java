@@ -40,12 +40,6 @@ class GenreServiceTest {
     }
 
     @Test
-    void shouldNotFindById(){
-        Genre genre = new Genre();
-        when(reposito)
-    }
-
-    @Test
     void add() {
         Genre genre = new Genre();
         genre.setGenreName("Test");
