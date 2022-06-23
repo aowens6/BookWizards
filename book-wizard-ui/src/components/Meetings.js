@@ -7,12 +7,14 @@ import { bookResult } from "../services/bookObject"
 function Meetings (){
 
     const [meetings, setMeetings] = useState([]);
+    const [unsearchedMeetings, setUnsearchedMeetings] = useState([]);
     const [searchedMeetings, setSearchedMeetings] = useState([]);
     const { user } = useContext(AuthContext);
 
     useEffect(() => {
         findAll()
             .then(meetingList => {
+            
                 const tmpMeetings = [];
                 let tmpBook = {};
                 for (let i = 0; i < meetingList.length; i++){
@@ -20,7 +22,10 @@ function Meetings (){
                     let book = tmpBook.book;
                     tmpMeetings.push({...meetingList[i], book});
                 }
+
                 setMeetings(tmpMeetings);
+                
+                setUnsearchedMeetings(meetingList);
             })
             .catch(console.error);
     }, []);
@@ -61,13 +66,27 @@ function Meetings (){
                 </select>
             </form>
             <div className="row row-cols-lg-12 row-cols-md-12 row-cols-12 mx-3 g-3">
+                
+                {searchedMeetings.length === 0 && unsearchedMeetings.map(m =>
+                    <div className="card text-dark bg-light" key={m.meetingId}>
+                        <div className="card-header">
+                            <h5 className="card-title">{m.groupName}</h5>
+                        </div>
+                        <div className="card-body">
+                            <p><strong>Current Book: &nbsp;&nbsp;&nbsp;&nbsp;</strong> <em>{`Title: ${m.book.title} | Author: ${m.book.author.firstName} ${m.book.author.lastName} | Genre: ${m.book.genre.genreName}`}</em></p>
+                        </div>
+                        {user && <div className="card-footer d-flex justify-content-end">
+                            <Link to={`/meeting/${m.meetingId}`} className="btn btn-info me-2">More Info</Link>
+                        </div>}
+                    </div>
+                )}
                 {searchedMeetings.map(m =>
                     <div className="card text-dark bg-light" key={m.meetingId}>
                         <div className="card-header">
                             <h5 className="card-title">{m.groupName}</h5>
                         </div>
                         <div className="card-body">
-                            <p><strong>Current Book: &nbsp;&nbsp;&nbsp;&nbsp;</strong> <em>{`Title: ${m.book.title} | Author: ${m.book.author} | Genre: ${m.book.genre}`}</em></p>
+                            <p><strong>Current Book: &nbsp;&nbsp;&nbsp;&nbsp;</strong> <em>{`Title: ${m.book.title} | Author: ${m.book.author} | Genre: ${m.book.genre.genreName}`}</em></p>
                         </div>
                         {user && <div className="card-footer d-flex justify-content-end">
                             <Link to={`/meeting/${m.meetingId}`} className="btn btn-info me-2">More Info</Link>

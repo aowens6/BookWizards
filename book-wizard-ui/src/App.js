@@ -11,6 +11,7 @@ import Nav from "./components/Nav";
 import NotFound from "./components/NotFound";
 import { refresh } from "./services/auth";
 import AuthContext from "./contexts/AuthContext";
+import VideoCallPage from "./VideoCallPage";
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
             <Route path="/add" element={user ? <MeetingForm /> : <Login />} />
             <Route path="/edit/:meetingId" element={user ? <MeetingForm /> : <Login />} />
             <Route path="/delete/:meetingId" element={user ? <MeetingConfirmDelete /> : <Login />} />
+            <Route path="/videoCallPage" element={<VideoCallPage/>} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="*" element={<NotFound />} />
